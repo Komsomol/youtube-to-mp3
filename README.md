@@ -1,8 +1,6 @@
 # Youtube link to MP3 files
 Convert youtube links to mp3s
 
-##Demo
-
 ![Demo](assets/example.gif)
 
 ## Installation
