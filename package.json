@@ -1,0 +1,24 @@
+{
+  "name": "yt-mp3",
+  "version": "0.0.1",
+  "description": "pass in youtube url and get mp3 out",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "youtube",
+    "ffmpeg",
+    "mp3"
+  ],
+  "author": "farhad agzamov",
+  "license": "MIT",
+  "dependencies": {
+    "cli-progress": "^1.8.0",
+    "colors": "^1.1.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "moment": "^2.21.0",
+    "prompt-confirm": "^1.2.0",
+    "ytdl-core": "^0.20.1"
+  }
+}
