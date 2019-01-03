@@ -9,38 +9,30 @@ const moment = require('moment');
 const cliProgress = require('cli-progress');
 const colors = require('colors');
 
-const Enquirer = require('enquirer');
-const enquirer = new Enquirer();
+const { prompt } = require('enquirer');
 
-enquirer.register('confirm', require('prompt-confirm'));
-
-// vars
+//vars
 let ytTime, percentage, dirname = 'mp3s/';
 
-// question asked to console
-const question = [
-	{
+async function getYTURL(){
+	// get user prompt
+	const question = await prompt({
 		type: 'input',
 		name: 'ytURL',
 		message: 'Paste in youtube link',
-	}
-];
+	});
 
-enquirer.ask(question)
-	.then(function(answer) {
+	// execute this when result is recieved
+	ytdl.getInfo(question.ytURL, (err, info) => {
+		if (err) {
+			throw err;
+		}
+		ytTime = info.length_seconds;
+		startConversion(question.ytURL, info.title, info.author.name);
+	});
+}
 
-		// get information about YT video and get video time
-		ytdl.getInfo(answer.ytURL, (err, info) => {
-			if (err){
-				throw err;
-			}
-			ytTime = info.length_seconds;
-			startConversion(answer.ytURL, info.title, info.author.name);
-		});
-
-	})
-	.catch(console.error)
-
+// conversion process
 const startConversion = (url, title, artist) => {
 
 	// progress bar
@@ -83,3 +75,6 @@ const startConversion = (url, title, artist) => {
 	});
 	
 };
+
+// start
+getYTURL();

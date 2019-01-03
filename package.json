@@ -16,9 +16,9 @@
   "dependencies": {
     "cli-progress": "^1.8.0",
     "colors": "^1.1.2",
+    "enquirer": "^2.3.0",
     "fluent-ffmpeg": "^2.1.2",
     "moment": "^2.21.0",
-    "prompt-confirm": "^1.2.0",
     "ytdl-core": "^0.20.1"
   }
 }
