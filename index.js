@@ -27,16 +27,19 @@ const question = [
 ];
 
 enquirer.ask(question)
-.then(function(answer) {
+	.then(function(answer) {
 
-	// get information about YT video and get video time
-	ytdl.getInfo(answer.ytURL, (err, info) => {
-		if (err) throw err;
-		ytTime = info.length_seconds;
-		startConversion(answer.ytURL, info.title, info.author.name);
-	});
+		// get information about YT video and get video time
+		ytdl.getInfo(answer.ytURL, (err, info) => {
+			if (err){
+				throw err;
+			}
+			ytTime = info.length_seconds;
+			startConversion(answer.ytURL, info.title, info.author.name);
+		});
 
-});
+	})
+	.catch(console.error)
 
 const startConversion = (url, title, artist) => {
 
@@ -80,5 +83,3 @@ const startConversion = (url, title, artist) => {
 	});
 	
 };
-
-
