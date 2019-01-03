@@ -22,14 +22,21 @@ async function getYTURL(){
 		message: 'Paste in youtube link',
 	});
 
-	// execute this when result is recieved
-	ytdl.getInfo(question.ytURL, (err, info) => {
-		if (err) {
-			throw err;
-		}
-		ytTime = info.length_seconds;
-		startConversion(question.ytURL, info.title, info.author.name);
-	});
+	// check if url is a valid Youtube link
+	if (validateYouTubeUrl(question.ytURL)){ 
+		// execute this when result is recieved
+		ytdl.getInfo(question.ytURL, (err, info) => {
+			if (err) {
+				throw err;
+			}
+			ytTime = info.length_seconds;
+			startConversion(question.ytURL, info.title, info.author.name);
+		});
+	} else {
+		console.log("Input a valid YT url");
+		process.exit(0)
+	}
+
 }
 
 // conversion process
@@ -75,6 +82,23 @@ const startConversion = (url, title, artist) => {
 	});
 	
 };
+
+const validateYouTubeUrl = (url) => {
+	if (url != undefined || url != '') {
+		var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+		var match = url.match(regExp);
+		if (match && match[2].length == 11) {
+			// Do anything for being valid
+			// if need to change the url to embed url then use below line
+			return true
+		}
+		else {
+			// Do anything for not being valid
+			return false
+		}
+	}
+}
+
 
 // start
 getYTURL();
